@@ -32,7 +32,11 @@ class Contact
   # This method should accept an id as an argument
   # and return the contact who has that id
   def self.find(id)
-    @@contacts['id']
+   @@contacts.each do |contact|
+     if contact.id == id
+       return contact
+     end
+   end
   end
 
   # This method should allow you to specify
@@ -42,11 +46,11 @@ class Contact
   def update(attrib, value)
     case attrib
     when  "first name"
-      @@contacts['first_name'] = value
+      self.first_name = value
     when "last name"
-      @@contacts['last_name'] = value
+      self.last_name = value
     when "email"
-      @@contacts['email'] = value
+      self.email = value
     else
       "Not Found."
     end
@@ -56,30 +60,22 @@ class Contact
   # but it should allow you to search for a contact using attributes other than id
   # by specifying both the name of the attribute and the value
   # eg. searching for 'first_name', 'Betty' should return the first contact named Betty
+
+#Contact.find_by("first_name","John")
   def self.find_by(attrib, value)
-    case attrib
-    when  "first name"
-      if @@contacts['first_name'] == value
-        @@contacts['first_name']
-      else
-        "Not Found"
+    result = Array.new
+    @@contacts.each do | contact |
+      field = contact.method(attrib.to_sym)
+      if field.call == value
+        result << contact
       end
-    when "last name"
-      if @@contacts['last_name'] == value
-        @@contacts['last_name']
-      else
-        "Not Found"
-      end
-    when "email"
-      if @@contacts['email'] == value
-        @@contacts['email']
-      else
-        "Not Found."
-      end
-    else
-      "Not Found."
     end
+    return result
   end
+
+
+
+
 
   # This method should delete all of the contacts
   def self.delete_all
@@ -95,7 +91,7 @@ class Contact
 
   # This method should delete the contact
   # HINT: Check the Array class docs for built-in methods that might be useful here
-  def delete
+  def delete(name)
 
   end
 
