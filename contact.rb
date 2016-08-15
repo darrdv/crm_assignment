@@ -26,39 +26,72 @@ class Contact
 
   # This method should return all of the existing contacts
   def self.all
-
+    @@contacts
   end
 
   # This method should accept an id as an argument
   # and return the contact who has that id
-  def self.find
-
+  def self.find(id)
+    @@contacts['id']
   end
 
   # This method should allow you to specify
   # 1. which of the contact's attributes you want to update
   # 2. the new value for that attribute
   # and then make the appropriate change to the contact
-  def update
-
+  def update(attrib, value)
+    case attrib
+    when  "first name"
+      @@contacts['first_name'] = value
+    when "last name"
+      @@contacts['last_name'] = value
+    when "email"
+      @@contacts['email'] = value
+    else
+      "Not Found."
+    end
   end
 
   # This method should work similarly to the find method above
   # but it should allow you to search for a contact using attributes other than id
   # by specifying both the name of the attribute and the value
   # eg. searching for 'first_name', 'Betty' should return the first contact named Betty
-  def self.find_by
-
+  def self.find_by(attrib, value)
+    case attrib
+    when  "first name"
+      if @@contacts['first_name'] == value
+        @@contacts['first_name']
+      else
+        "Not Found"
+      end
+    when "last name"
+      if @@contacts['last_name'] == value
+        @@contacts['last_name']
+      else
+        "Not Found"
+      end
+    when "email"
+      if @@contacts['email'] == value
+        @@contacts['email']
+      else
+        "Not Found."
+      end
+    else
+      "Not Found."
+    end
   end
 
   # This method should delete all of the contacts
   def self.delete_all
-
+    @@contacts = []
+    "Contacts have all been deleted."
   end
 
   def full_name
-
+    "#{first_name} #{last_name}"
   end
+
+
 
   # This method should delete the contact
   # HINT: Check the Array class docs for built-in methods that might be useful here
