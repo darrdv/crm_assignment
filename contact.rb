@@ -73,26 +73,20 @@ class Contact
     return result
   end
 
-
-
-
-
   # This method should delete all of the contacts
   def self.delete_all
     @@contacts = []
-    "Contacts have all been deleted."
+    @@id = 1
   end
 
   def full_name
     "#{first_name} #{last_name}"
   end
 
-
-
   # This method should delete the contact
   # HINT: Check the Array class docs for built-in methods that might be useful here
-  def delete(name)
-
+  def delete
+    @@contacts.delete_if { |contact| contact == self }
   end
 
   # Feel free to add other methods here, if you need them.
