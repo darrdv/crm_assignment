@@ -56,6 +56,12 @@ class Contact
     end
   end
 
+  def self.create(first_name, last_name, email, note)
+    new_contact = Contact.new(first_name, last_name, email, note)
+    @@contacts << new_contact
+    return new_contact
+  end
+
   # This method should work similarly to the find method above
   # but it should allow you to search for a contact using attributes other than id
   # by specifying both the name of the attribute and the value

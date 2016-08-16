@@ -55,10 +55,12 @@ class CRM
     note = gets.chomp
 
     Contact.create(first_name, last_name, email, note)
-    
+
   end
 
   def modify_existing_contact
+    puts "Enter the user ID of the contact to be modified: "
+    id = gets.to_i
     puts 'What field do you wish to modify?'
     print_field_options
     field = gets.to_i
@@ -74,7 +76,8 @@ class CRM
       chosen_field = 'email'
     end
 
-    contact = Contact.find_by(chosen_field, value)
+    #contact = Contact.find_by(chosen_field, value)
+    contact = Contact.find(id)
     contact.update(chosen_field, value)
 
   end
@@ -118,7 +121,7 @@ class CRM
     puts "What value are you searching for: "
     value = gets.chomp
 
-    results << Contact.find_by(chosen_field, value)
+    results = Contact.find_by(chosen_field, value)
 
     #HINT: Make use of the display_contacts method to keep your code DRY
     display_contacts(results)
