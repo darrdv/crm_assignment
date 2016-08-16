@@ -1,10 +1,6 @@
 class CRM
   require_relative 'contact'
 
-  def initialize
-
-  end
-
   def main_menu
     while true # repeat indefinitely
       print_main_menu
@@ -23,7 +19,13 @@ class CRM
     puts 'Enter a number: '
   end
 
-  def call_option
+  def print_field_options
+    puts '[1] First Name'
+    puts '[2] Last Name'
+    puts '[3] Email'
+  end
+
+
     def call_option(user_selected)
       case user_selected
         when 1 then add_new_contact
@@ -32,13 +34,13 @@ class CRM
         when 4 then display_all_contacts
         when 5 then search_by_attribute
         when 6 then exit_the_program
-          
+
         # Finish off the rest for 3 through 6
         # To be clear, the methods add_new_contact and modify_existing_contact
         # haven't been implemented yet
       end
     end
-  end
+
 
   def add_new_contact
     print 'Enter First Name: '
@@ -57,6 +59,22 @@ class CRM
   end
 
   def modify_existing_contact
+    puts 'What field do you wish to modify?'
+    print_field_options
+    field = gets.to_i
+    puts 'Enter new value:'
+    value = gets.chomp
+
+    case field
+    when 1
+      chosen_field = 'first_name'
+    when 2
+      chosen_field = 'last_name'
+    when 3
+      chosen_field = 'email'
+    end
+
+    return Contact.find_by(chosen_field, value)
 
   end
 
