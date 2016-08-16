@@ -45,14 +45,14 @@ class Contact
   # and then make the appropriate change to the contact
   def update(attrib, value)
     case attrib
-    when  "first name"
-      self.first_name = value
-    when "last name"
-      self.last_name = value
+    when "first_name"
+        self.first_name = value
+    when "last_name"
+        self.last_name = value
     when "email"
-      self.email = value
-    else
-      "Not Found."
+        self.email = value
+    when "note"
+        self.note = value
     end
   end
 
@@ -67,16 +67,33 @@ class Contact
   # by specifying both the name of the attribute and the value
   # eg. searching for 'first_name', 'Betty' should return the first contact named Betty
 
-#Contact.find_by("first_name","John")
   def self.find_by(attrib, value)
-    result = Array.new
-    @@contacts.each do | contact |
-      field = contact.method(attrib.to_sym)
-      if field.call == value
-        result << contact
+    @@contacts.each do |contact|
+      case attrib
+        when  "first_name"
+          return contact if contact.first_name == value
+        when "last_name"
+          return contact if contact.last_name == value
+        when "email"
+          return contact if contact.email == value
+        when "note"
+          return contact if contact.note == value
       end
+      #return results
     end
-    return result
+  end
+
+  def update(attrib, value)
+    case attrib
+      when  "first_name"
+        self.first_name = value
+      when "last_name"
+        self.last_name = value
+      when "email"
+        self.email = value
+      when "note"
+        self.note = value
+      end
   end
 
   # This method should delete all of the contacts
